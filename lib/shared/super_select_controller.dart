@@ -13,6 +13,10 @@ class SuperSelectController extends ChangeNotifier {
     }
   }
 
+  set selectedItem(ItemData? itemData) {
+    _setItem(itemData);
+  }
+
   void _setItem(ItemData? itemData) {
     _selectedItem = itemData;
     notifyListeners();

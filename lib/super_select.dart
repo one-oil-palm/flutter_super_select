@@ -43,7 +43,7 @@ class SuperSelectState extends State<SuperSelect> {
   bool dropdownIsVisible = false;
   final FocusNode focusNode = FocusNode();
 
-  void updateDisplay() {
+  void updateText() {
     debugPrint("SUPER SELECT UPDATE DISPLAY.");
     setState(() {
       if (widget.multiSelect) {
@@ -100,7 +100,7 @@ class SuperSelectState extends State<SuperSelect> {
         );
         dropdownIsVisible = false;
     }
-    updateDisplay();
+    updateText();
   }
 
   void handleOnTap() {
@@ -109,7 +109,7 @@ class SuperSelectState extends State<SuperSelect> {
 
   @override
   void initState() {
-    widget.controller.addListener(updateDisplay);
+    widget.controller.addListener(updateText);
     widget.controller._multiSelect = widget.multiSelect;
     super.initState();
   }

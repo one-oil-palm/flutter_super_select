@@ -14,6 +14,7 @@ class SuperSelectController extends ChangeNotifier {
   }
 
   set selectedItem(ItemData? itemData) {
+
     _setItem(itemData);
   }
 

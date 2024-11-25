@@ -43,6 +43,32 @@ class SuperSelectState extends State<SuperSelect> {
   bool dropdownIsVisible = false;
   final FocusNode focusNode = FocusNode();
 
+  void updateDisplay() {
+    setState(() {
+      if (widget.multiSelect) {
+        List<ItemData> itemDataList = widget.controller.result;
+        if (itemDataList.isNotEmpty) {
+          for(ItemData itemData in itemDataList) {
+            debugPrint("MULTI CHOICE SELECTED ARE: ${itemData.value} (${itemData.text})");
+          }
+          _textEditingController.text = "${itemDataList.length} Selected";
+        } else {
+          _textEditingController.clear();
+          debugPrint("MULTI CHOICE SELECTED ARE: NONE SELECTED");
+        }
+      } else {
+        ItemData? itemData = widget.controller.result;
+        if (itemData != null) {
+          debugPrint("SINGLE CHOICE IS: ${itemData.value} (${itemData.text})");
+          _textEditingController.text = itemData.text;
+        } else {
+          debugPrint("SINGLE CHOICE IS: NONE SELECTED ");
+          _textEditingController.clear();
+        }
+      }
+    });
+  }
+
   void _defaultOnTapAction() async {
     debugPrint("DEFAULT DIALOG OPENED, WAITING CHOICE");
 
@@ -73,30 +99,7 @@ class SuperSelectState extends State<SuperSelect> {
         );
         dropdownIsVisible = false;
     }
-
-    setState(() {
-      if (widget.multiSelect) {
-        List<ItemData> itemDataList = widget.controller.result;
-        if (itemDataList.isNotEmpty) {
-          for(ItemData itemData in itemDataList) {
-            debugPrint("MULTI CHOICE SELECTED ARE: ${itemData.value} (${itemData.text})");
-          }
-          _textEditingController.text = "${itemDataList.length} Selected";
-        } else {
-          _textEditingController.clear();
-          debugPrint("MULTI CHOICE SELECTED ARE: NONE SELECTED");
-        }
-      } else {
-        ItemData? itemData = widget.controller.result;
-        if (itemData != null) {
-          debugPrint("SINGLE CHOICE IS: ${itemData.value} (${itemData.text})");
-          _textEditingController.text = itemData.text;
-        } else {
-          debugPrint("SINGLE CHOICE IS: NONE SELECTED ");
-          _textEditingController.clear();
-        }
-      }
-    });
+    updateDisplay();
   }
 
   void handleOnTap() {
@@ -105,8 +108,9 @@ class SuperSelectState extends State<SuperSelect> {
 
   @override
   void initState() {
-    super.initState();
+    widget.controller.addListener(updateDisplay);
     widget.controller._multiSelect = widget.multiSelect;
+    super.initState();
   }
 
   @override

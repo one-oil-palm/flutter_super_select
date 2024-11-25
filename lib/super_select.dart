@@ -44,6 +44,7 @@ class SuperSelectState extends State<SuperSelect> {
   final FocusNode focusNode = FocusNode();
 
   void updateDisplay() {
+    debugPrint("SUPER SELECT UPDATE DISPLAY.");
     setState(() {
       if (widget.multiSelect) {
         List<ItemData> itemDataList = widget.controller.result;

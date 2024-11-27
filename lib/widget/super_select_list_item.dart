@@ -90,7 +90,7 @@ class _SuperSelectListItemState extends State<SuperSelectListItem> {
 
   @override
   Widget build(BuildContext context) {
-    textWidth = MediaQuery.of(context).size.width * 0.85;
+    textWidth = MediaQuery.of(context).size.width * 0.75;
     if (widget.multiSelect) {
       return multi;
     } else {

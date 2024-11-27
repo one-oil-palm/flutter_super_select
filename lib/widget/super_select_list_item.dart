@@ -30,7 +30,12 @@ class _SuperSelectListItemState extends State<SuperSelectListItem> {
         widget.controller._setItem(widget.itemData);
         Navigator.pop(widget.context);
       },
-      child: SizedBox(
+      child: Container(
+          decoration: const BoxDecoration(
+            border: Border(
+              bottom: BorderSide(width: 1, color: Colors.grey),
+            ),
+          ),
           width: double.infinity,
           child: Padding(
               padding: const EdgeInsets.all(10),
@@ -58,7 +63,12 @@ class _SuperSelectListItemState extends State<SuperSelectListItem> {
           widget.controller._removeItem(widget.itemData);
         }
       },
-      child: SizedBox(
+      child: Container(
+          decoration: const BoxDecoration(
+              border: Border(
+                bottom: BorderSide(width: 1, color: Colors.grey),
+              ),
+          ),
           width: double.infinity,
           child: Padding(
             padding: const EdgeInsets.all(10),

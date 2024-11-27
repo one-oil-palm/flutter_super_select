@@ -18,7 +18,6 @@ class SuperSelect extends StatefulWidget {
   final Widget? title;
   final TextStyle? itemTextStyle;
   final String? Function(String?)? validator;
-  final ItemData? initialValue;
 
   const SuperSelect({super.key,
     required this.context,
@@ -31,7 +30,6 @@ class SuperSelect extends StatefulWidget {
     this.dialogMode = DialogMode.bottomSheet,
     this.title,
     this.itemTextStyle,
-    this.initialValue,
   });
 
   @override
@@ -136,7 +134,6 @@ class SuperSelectState extends State<SuperSelect> {
         children: [
           TextFormField(
               controller: _textEditingController,
-              initialValue: widget.initialValue != null ? widget.initialValue?.text : '',
               focusNode: focusNode,
               readOnly: true,
               onTap: handleOnTap,

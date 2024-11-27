@@ -2,7 +2,7 @@ part of '../super_select.dart';
 
 class SuperSelectController extends ChangeNotifier {
   bool _multiSelect = false;
-  final List<ItemData> _selectedItems = [];
+  List<ItemData> _selectedItems = [];
   ItemData? _selectedItem;
 
   dynamic get result {
@@ -19,6 +19,14 @@ class SuperSelectController extends ChangeNotifier {
 
   ItemData? get selectedItem {
     return _selectedItem;
+  }
+
+  set selectedItems(List<ItemData> itemDataList) {
+    _selectedItems = itemDataList;
+  }
+
+  List<ItemData> get selectedItems {
+    return _selectedItems;
   }
 
   String get selectedItemText {

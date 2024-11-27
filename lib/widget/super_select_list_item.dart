@@ -33,11 +33,15 @@ class _SuperSelectListItemState extends State<SuperSelectListItem> {
           width: double.infinity,
           child: Padding(
               padding: const EdgeInsets.all(10),
-              child: Text(widget.itemData.text,
-                style: (widget.textStyle != null)
-                    ? widget.textStyle
-                    : Theme.of(widget.context).textTheme.titleMedium,
-              )
+              child: Wrap(
+                children: [
+                  Text(widget.itemData.text,
+                    style: (widget.textStyle != null)
+                        ? widget.textStyle
+                        : Theme.of(widget.context).textTheme.titleMedium,
+                  )
+                ],
+              ),
           )
       ),
     );
@@ -64,10 +68,14 @@ class _SuperSelectListItemState extends State<SuperSelectListItem> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(widget.itemData.text,
-                  style: (widget.textStyle != null)
-                      ? widget.textStyle
-                      : Theme.of(widget.context).textTheme.titleMedium,
+                Wrap(
+                  children: [
+                    Text(widget.itemData.text,
+                      style: (widget.textStyle != null)
+                          ? widget.textStyle
+                          : Theme.of(widget.context).textTheme.titleMedium,
+                    ),
+                  ],
                 ),
                 Checkbox(
                     value: _checked,

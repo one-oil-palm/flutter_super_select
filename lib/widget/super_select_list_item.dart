@@ -34,14 +34,10 @@ class _SuperSelectListItemState extends State<SuperSelectListItem> {
           width: double.infinity,
           child: Padding(
               padding: const EdgeInsets.all(10),
-              child: Wrap(
-                children: [
-                  Text(widget.itemData.text,
-                    style: (widget.textStyle != null)
-                        ? widget.textStyle
-                        : Theme.of(widget.context).textTheme.titleMedium,
-                  )
-                ],
+              child: Text(widget.itemData.text,
+                style: (widget.textStyle != null)
+                    ? widget.textStyle
+                    : Theme.of(widget.context).textTheme.titleMedium,
               ),
           )
       ),
@@ -65,7 +61,7 @@ class _SuperSelectListItemState extends State<SuperSelectListItem> {
       child: SizedBox(
           width: double.infinity,
           child: Padding(
-            padding: const EdgeInsets.all(0),
+            padding: const EdgeInsets.all(10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

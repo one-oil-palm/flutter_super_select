@@ -22,6 +22,7 @@ class SuperSelectListItem extends StatefulWidget {
 
 class _SuperSelectListItemState extends State<SuperSelectListItem> {
   bool _checked = false;
+  late double textWidth;
 
   Widget get single {
     return InkWell(
@@ -68,14 +69,13 @@ class _SuperSelectListItemState extends State<SuperSelectListItem> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Wrap(
-                  children: [
-                    Text(widget.itemData.text,
-                      style: (widget.textStyle != null)
-                          ? widget.textStyle
-                          : Theme.of(widget.context).textTheme.titleMedium,
-                    ),
-                  ],
+                SizedBox(
+                  width: textWidth,
+                  child: Text(widget.itemData.text,
+                    style: (widget.textStyle != null)
+                        ? widget.textStyle
+                        : Theme.of(widget.context).textTheme.titleMedium,
+                  ),
                 ),
                 Checkbox(
                     value: _checked,
@@ -90,6 +90,7 @@ class _SuperSelectListItemState extends State<SuperSelectListItem> {
 
   @override
   Widget build(BuildContext context) {
+    textWidth = MediaQuery.of(context).size.width * 0.85;
     if (widget.multiSelect) {
       return multi;
     } else {

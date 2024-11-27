@@ -17,6 +17,10 @@ class SuperSelectController extends ChangeNotifier {
     _selectedItem = itemData;
   }
 
+  String get selectedItemText {
+    return _selectedItem?.text ?? '';
+  }
+
   void _setItem(ItemData? itemData) {
     _selectedItem = itemData;
     notifyListeners();

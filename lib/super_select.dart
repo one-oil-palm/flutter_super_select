@@ -116,6 +116,7 @@ class SuperSelectState extends State<SuperSelect> {
 
   @override
   Widget build(BuildContext context) {
+    _textEditingController.text = widget.controller.selectedItemText;
     return Focus(
       onFocusChange: (hasFocus) {
         if (hasFocus) {

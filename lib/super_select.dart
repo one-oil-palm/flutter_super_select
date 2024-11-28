@@ -45,29 +45,27 @@ class SuperSelectState extends State<SuperSelect> {
 
   void updateText() {
     debugPrint("SUPER SELECT UPDATE DISPLAY.");
-    setState(() {
-      if (widget.multiSelect) {
-        List<ItemData> itemDataList = widget.controller.result;
-        if (itemDataList.isNotEmpty) {
-          for(ItemData itemData in itemDataList) {
-            debugPrint("MULTI CHOICE SELECTED ARE: ${itemData.value} (${itemData.text})");
-          }
-          _textEditingController.text = "${itemDataList.length} Selected";
-        } else {
-          _textEditingController.clear();
-          debugPrint("MULTI CHOICE SELECTED ARE: NONE SELECTED");
+    if (widget.multiSelect) {
+      List<ItemData> itemDataList = widget.controller.result;
+      if (itemDataList.isNotEmpty) {
+        for(ItemData itemData in itemDataList) {
+          debugPrint("MULTI CHOICE SELECTED ARE: ${itemData.value} (${itemData.text})");
         }
+        _textEditingController.text = "${itemDataList.length} Selected";
       } else {
-        ItemData? itemData = widget.controller.result;
-        if (itemData != null) {
-          debugPrint("SINGLE CHOICE IS: ${itemData.value} (${itemData.text})");
-          _textEditingController.text = itemData.text;
-        } else {
-          debugPrint("SINGLE CHOICE IS: NONE SELECTED ");
-          _textEditingController.clear();
-        }
+        _textEditingController.clear();
+        debugPrint("MULTI CHOICE SELECTED ARE: NONE SELECTED");
       }
-    });
+    } else {
+      ItemData? itemData = widget.controller.result;
+      if (itemData != null) {
+        debugPrint("SINGLE CHOICE IS: ${itemData.value} (${itemData.text})");
+        _textEditingController.text = itemData.text;
+      } else {
+        debugPrint("SINGLE CHOICE IS: NONE SELECTED ");
+        _textEditingController.text = '';
+      }
+    }
   }
 
   void _defaultOnTapAction() async {
@@ -100,7 +98,9 @@ class SuperSelectState extends State<SuperSelect> {
         );
         dropdownIsVisible = false;
     }
-    updateText();
+    setState(() {
+      updateText();
+    });
   }
 
   void handleOnTap() {

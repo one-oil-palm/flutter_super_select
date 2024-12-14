@@ -48,7 +48,7 @@ class SuperSelectState extends State<SuperSelect> {
     if (widget.multiSelect) {
       List<ItemData> itemDataList = widget.controller.result;
       itemDataList.removeWhere((ItemData item) {
-        return item.value != null;
+        return item.value == null;
       });
       if (itemDataList.isNotEmpty) {
         for(ItemData itemData in itemDataList) {

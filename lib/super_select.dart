@@ -47,6 +47,9 @@ class SuperSelectState extends State<SuperSelect> {
     debugPrint("SUPER SELECT UPDATE DISPLAY.");
     if (widget.multiSelect) {
       List<ItemData> itemDataList = widget.controller.result;
+      itemDataList.removeWhere((ItemData item) {
+        return item.value != null;
+      });
       if (itemDataList.isNotEmpty) {
         for(ItemData itemData in itemDataList) {
           debugPrint("MULTI CHOICE SELECTED ARE: ${itemData.value} (${itemData.text})");

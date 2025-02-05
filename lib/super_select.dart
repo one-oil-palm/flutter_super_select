@@ -18,6 +18,8 @@ class SuperSelect extends StatefulWidget {
   final Widget? title;
   final TextStyle? itemTextStyle;
   final String? Function(String?)? validator;
+  final String? labelText;
+  final Widget? label;
 
   const SuperSelect({super.key,
     required this.context,
@@ -30,6 +32,8 @@ class SuperSelect extends StatefulWidget {
     this.dialogMode = DialogMode.bottomSheet,
     this.title,
     this.itemTextStyle,
+    this.labelText,
+    this.label
   });
 
   @override
@@ -142,8 +146,10 @@ class SuperSelectState extends State<SuperSelect> {
               readOnly: true,
               onTap: handleOnTap,
               onEditingComplete: () {},
-              decoration: const InputDecoration(
-                  suffixIcon: Icon(Icons.arrow_drop_down)
+              decoration: InputDecoration(
+                  labelText: widget.labelText,
+                  label: widget.label,
+                  suffixIcon: const Icon(Icons.arrow_drop_down)
               ),
               validator: widget.validator
           ),

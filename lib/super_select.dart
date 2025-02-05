@@ -70,7 +70,8 @@ class SuperSelectState extends State<SuperSelect> {
         _textEditingController.text = itemData.text;
       } else {
         debugPrint("SINGLE CHOICE IS: NONE SELECTED ");
-        _textEditingController.text = '';
+        //_textEditingController.text = '';
+        _textEditingController.clear();
       }
     }
   }

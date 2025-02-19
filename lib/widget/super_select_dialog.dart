@@ -31,84 +31,86 @@ class SuperSelectDialog {
           List<ItemData> filteredItems = items;
 
           return StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
-            return Container(
-              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-              width: double.infinity,
-              height: height,
-              child: Column(
-                children: [
-                  if (title != null) title,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            return SafeArea(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                  width: double.infinity,
+                  height: height,
+                  child: Column(
                     children: [
-                      Flexible(
-                        child: TextButton(
-                          onPressed: () {
-                            controller._clearAll();
-                            Navigator.of(context).pop();
-                          },
-                          child: Text('Clear selection',
-                              style: TextStyle(decoration: TextDecoration.underline)
+                      if (title != null) title,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Flexible(
+                            child: TextButton(
+                              onPressed: () {
+                                controller._clearAll();
+                                Navigator.of(context).pop();
+                              },
+                              child: Text('Clear selection',
+                                  style: TextStyle(decoration: TextDecoration.underline)
+                              ),
+                            ),
                           ),
+                          Flexible(
+                            child: TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop(lastItemData);
+                              },
+                              child: Text(multiSelect ? 'Done' : 'Close',
+                                  style: TextStyle(decoration: TextDecoration.underline)
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 0),
+                        child: TextField(
+                          controller: searchController,
+                          decoration: InputDecoration(
+                              hintText: 'Search'
+                          ),
+                          onChanged: (String? searchString) {
+                            setState(() {
+                              if (searchString != null) {
+                                if (searchString.isNotEmpty) {
+                                  // filter it
+                                  debugPrint("FILTERING $searchString");
+                                  filteredItems = items.where((ItemData testData) {
+                                    return testData.text.toLowerCase().contains(searchString.trim().toLowerCase());
+                                  }).toList();
+                                } else {
+                                  debugPrint("FULL LIST");
+                                  // full list
+                                  filteredItems = items;
+                                }
+                              } else {
+                                filteredItems = items;
+                              }
+                            });
+                          },
                         ),
                       ),
-                      Flexible(
-                        child: TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop(lastItemData);
-                          },
-                          child: Text(multiSelect ? 'Done' : 'Close',
-                              style: TextStyle(decoration: TextDecoration.underline)
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: filteredItems.map((ItemData itemData) {
+                              return SuperSelectListItem(
+                                context: context,
+                                controller: controller,
+                                itemData: itemData,
+                                textStyle: itemTextStyle,
+                                multiSelect: multiSelect,
+                              );
+                            }).toList(),
                           ),
                         ),
                       ),
                     ],
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 0),
-                    child: TextField(
-                      controller: searchController,
-                      decoration: InputDecoration(
-                          hintText: 'Search'
-                      ),
-                      onChanged: (String? searchString) {
-                        setState(() {
-                          if (searchString != null) {
-                            if (searchString.isNotEmpty) {
-                              // filter it
-                              debugPrint("FILTERING $searchString");
-                              filteredItems = items.where((ItemData testData) {
-                                return testData.text.toLowerCase().contains(searchString.trim().toLowerCase());
-                              }).toList();
-                            } else {
-                              debugPrint("FULL LIST");
-                              // full list
-                              filteredItems = items;
-                            }
-                          } else {
-                            filteredItems = items;
-                          }
-                        });
-                      },
-                    ),
-                  ),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: filteredItems.map((ItemData itemData) {
-                          return SuperSelectListItem(
-                            context: context,
-                            controller: controller,
-                            itemData: itemData,
-                            textStyle: itemTextStyle,
-                            multiSelect: multiSelect,
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                )
             );
           });
         }

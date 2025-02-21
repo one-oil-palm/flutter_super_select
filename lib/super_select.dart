@@ -20,6 +20,7 @@ class SuperSelect extends StatefulWidget {
   final String? Function(String?)? validator;
   final String? labelText;
   final Widget? label;
+  final String? Function(int)? selectedTranslation;
 
   const SuperSelect({super.key,
     required this.context,
@@ -33,7 +34,8 @@ class SuperSelect extends StatefulWidget {
     this.title,
     this.itemTextStyle,
     this.labelText,
-    this.label
+    this.label,
+    this.selectedTranslation
   });
 
   @override
@@ -58,7 +60,12 @@ class SuperSelectState extends State<SuperSelect> {
         for(ItemData itemData in itemDataList) {
           debugPrint("MULTI CHOICE SELECTED ARE: ${itemData.value} (${itemData.text})");
         }
-        _textEditingController.text = "${itemDataList.length} Selected";
+        if (widget.selectedTranslation != null) {
+          String? translated = widget.selectedTranslation!(itemDataList.length);
+          _textEditingController.text = translated ?? "${itemDataList.length} Selected";
+        } else {
+          _textEditingController.text = "${itemDataList.length} Selected";
+        }
       } else {
         _textEditingController.clear();
         debugPrint("MULTI CHOICE SELECTED ARE: NONE SELECTED");

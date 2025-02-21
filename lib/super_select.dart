@@ -20,7 +20,7 @@ class SuperSelect extends StatefulWidget {
   final String? Function(String?)? validator;
   final String? labelText;
   final Widget? label;
-  final String? Function(int)? selectedTranslation;
+  final String? Function(int length)? selectedTranslation;
 
   const SuperSelect({super.key,
     required this.context,

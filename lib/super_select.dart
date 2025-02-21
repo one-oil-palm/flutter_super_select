@@ -62,9 +62,9 @@ class SuperSelectState extends State<SuperSelect> {
         }
         if (widget.selectedTranslation != null) {
           String? translated = widget.selectedTranslation!(itemDataList.length);
-          _textEditingController.text = translated ?? "${itemDataList.length} Selected";
+          _textEditingController.text = translated ?? "${itemDataList.length} selected";
         } else {
-          _textEditingController.text = "${itemDataList.length} Selected";
+          _textEditingController.text = "${itemDataList.length} selected";
         }
       } else {
         _textEditingController.clear();
